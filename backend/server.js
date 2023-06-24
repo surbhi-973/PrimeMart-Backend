@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import morgan from 'morgan'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
@@ -20,6 +21,10 @@ app.use(express.json())
 // app.get('/', (req, res) => {
 //       res.send('API is running...')
 //   });
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
